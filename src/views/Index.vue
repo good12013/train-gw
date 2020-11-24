@@ -28,7 +28,10 @@
                                     v-model="chooseTime"
                                     type="week"
                                     placeholder="choose a week"
-                                    format="yyyy-MM-ddT00:00:00+08:00">
+                                    :format="startTime"
+                                    value-format="yyyy-MM-dd"
+                                    :picker-options="pickerOption"
+                                    @change="changeTime">
                             </el-date-picker>
                         </div>
                     </div>
@@ -92,7 +95,11 @@
                 email:'',
                 referNum:'',
                 weekNum:'',
-                chooseTime:''
+                chooseTime:'',
+                pickerOption:{
+                    firstDayOfWeek: 1
+                },
+                startTime:''
 
             }
         },
@@ -100,8 +107,17 @@
 
         },
         methods:{
-            changeTime(key,val){
-                console.log(key,val)
+            changeTime(val){
+                this.startTime = this.getNextDate(val,-1)
+                this.chooseTime = this.getNextDate(val,-1) + 'T00:00:00+08:00'
+            },
+            getNextDate(date, day) {
+                var dd = new Date(date);
+                dd.setDate(dd.getDate() + day);
+                var y = dd.getFullYear();
+                var m = dd.getMonth() + 1 < 10 ? "0" + (dd.getMonth() + 1) : dd.getMonth() + 1;
+                var d = dd.getDate() < 10 ? "0" + dd.getDate() : dd.getDate();
+                return y + "-" + m + "-" + d;
             },
             resetInfo(){
                 this.email = '';
@@ -134,7 +150,7 @@
                     email:this.email,
                     shop_union_id:this.referNum,
                     turnover:this.weekNum,
-                    week_time:'2020-12-14T00:00:00+08:00'
+                    week_time:this.chooseTime
                 }
                 userUpload(params).then(res=>{
                     this.showSure = false;
@@ -159,7 +175,7 @@
 <style scoped>
     .logo-img{
         width: 100px;
-        height: 60px;
+        height: 40px;
     }
     .page{
         width: 100%;
@@ -223,7 +239,7 @@
     .value-info{
         width: 280px;
         height: 40px;
-        background: #d5d5d5;
+        background: #f0f0f0;
         border: none;
     }
     .content-bottom{
@@ -238,18 +254,18 @@
         align-items: center;
     }
     .cancel{
-        width: 120px;
+        width: 150px;
         height: 50px;
-        background: #d5d5d5;
+        background: #f0f0f0;
         color: #333333;
         font-size: 16px;
         text-align: center;
         line-height: 50px;
     }
     .sure{
-        width: 120px;
+        width: 150px;
         height: 50px;
-        background: #a71d5d;
+        background: #CC397F;
         color: #ffffff;
         font-size: 16px;
         text-align: center;
@@ -295,9 +311,9 @@
         line-height: 50px;
     }
     .sure-agein{
-        width: 120px;
+        width: 160px;
         height: 50px;
-        background: #a71d5d;
+        background: #CC397F;
         color: #ffffff;
         font-size: 16px;
         text-align: center;
