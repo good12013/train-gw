@@ -4,7 +4,7 @@
             <div class="submit-content">
                 <div class="conten-top">
                     <img class="logo-img" src="../assets/brand-logo.png"/>
-                    <div >Property Revenue Management System</div>
+                    <div class="logo-notice">Property Revenue Management System</div>
                 </div>
                 <div class="conten-middle">
                     <div class="middle-item">
@@ -46,7 +46,7 @@
                 <div class="content-bottom">
                     <div class="action-info">
                         <div class="cancel" @click="resetInfo">Reset</div>
-                        <div class="sure" @click="makeSure">Submit →</div>
+                        <div class="sure" @click="makeSure">Submit <img src="../assets/right-arrow.png" style="width: 21px;height: 13px;margin-left: 10px;"/></div>
                     </div>
                 </div>
             </div>
@@ -63,9 +63,9 @@
                 <div class="conten-middle">
                     <div class="sure-notice">You are about to submit</div>
                     <div class="sure-notice">your weekly revenue</div>
-                    <div class="sure-notice" style="color: #111111;">Area you sure?</div>
+                    <div class="sure-notice" style="font-weight: bold;">Area you sure?</div>
                 </div>
-                <div class="sure-agein" @click="submit">Yes →</div>
+                <div class="sure-agein" @click="submit">Yes<img src="../assets/right-arrow.png" style="width: 21px;height: 13px;margin-left: 10px;"/></div>
             </div>
         </div>
         <div class="dialog-window" v-if="showOkay">
@@ -75,11 +75,11 @@
                     <!--<div  style="height: 100px;"><span class="close-btn">Cancel</span></div>-->
                 </div>
                 <div class="conten-middle">
-                    <div class="sure-notice" style="color: #111111;">Thank you!</div>
-                    <div class="sure-notice" style="color: #111111;">We have received</div>
-                    <div class="sure-notice" style="color: #111111;">your submission</div>
+                    <div class="sure-notice" style="font-weight: bold;">Thank you!</div>
+                    <div class="sure-notice" style="font-weight: bold;">We have received</div>
+                    <div class="sure-notice" style="font-weight: bold;">your submission</div>
                 </div>
-                <div class="sure-agein" @click="goHome">Okay →</div>
+                <div class="sure-agein" @click="goHome">Okay<img src="../assets/right-arrow.png" style="width: 21px;height: 13px;margin-left: 10px;"/></div>
             </div>
         </div>
     </div>
@@ -149,7 +149,7 @@
                 const params = {
                     email:this.email,
                     shop_union_id:this.referNum,
-                    turnover:this.weekNum,
+                    turnover:parseFloat(this.weekNum),
                     week_time:this.chooseTime
                 }
                 userUpload(params).then(res=>{
@@ -163,6 +163,7 @@
 
             },
             goHome(){
+                this.resetInfo()
                 this.showOkay = false;
             },
             closeSure(){
@@ -209,12 +210,12 @@
         height: 100px;
         justify-content: space-between;
         align-items: center;
-        img{
-            width: 80px;
-            height: 40px;
-        }
-        font-size: 24px;
-        color: #333333;
+    }
+    .logo-notice{
+        font-family: Arial;
+        font-weight: bold;
+        color: #232323;
+        font-size: 18px;
     }
     .conten-middle{
         width: 100%;
@@ -229,7 +230,7 @@
         height: 50px;
         text-align: right;
         font-size: 14px;
-        color: #55a532;
+        color: #006B42;
         line-height: 50px;
     }
     .content-value{
@@ -270,6 +271,9 @@
         font-size: 16px;
         text-align: center;
         line-height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
     .close-area{
         border-radius: 50%;
@@ -309,6 +313,9 @@
         color: #333333;
         text-align: center;
         line-height: 50px;
+        font-family: Arial;
+        font-weight: 400;
+        color: #232323;
     }
     .sure-agein{
         width: 160px;
@@ -320,5 +327,8 @@
         line-height: 50px;
         margin: 0 auto;
         margin-top: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 </style>
