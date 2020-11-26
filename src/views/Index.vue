@@ -166,7 +166,7 @@
                 str = str.replace(/£/g,'')
                 if (!this.checkNum(str)){
                     console.log("gooood",str)
-                    this.weekErro.name = 'Please input right weekly turnover!'
+                    this.weekErro.name = 'Please input correct weekly turnover!'
                     return
                 }else{
                     this.weekErro.name = ''
@@ -264,13 +264,13 @@
                         that.timeErro.name = res.err_desc
                     }
                     if (res.error_item === 'email'){
-                        that.emailErro.name = res.err_desc
+                        that.emailErro.name = 'Please check your email address'
                     }
                     if (res.error_item === 'shop_union_id'){
-                        that.propErro.name = res.err_desc
+                        that.propErro.name = 'Please check your URN'
                     }
                     if (res.error_item === 'turnover'){
-                        that.weekErro.name = res.err_desc
+                        that.weekErro.name = 'Please input correct weekly turnover'
                     }
                     that.loading = false
 
