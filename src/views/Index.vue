@@ -20,7 +20,7 @@
                         </div>
                     </div>
                     <div class="middle-item">
-                        <div class="content-notice">Unique Reference Number (URN)：</div>
+                        <div class="content-notice">Unique Reference Number ( URN )：</div>
                         <div class="content-value">
                             <input class="value-info" v-model="referNum"  />
                         </div>
@@ -32,7 +32,7 @@
                         </div>
                     </div>
                     <div class="middle-item">
-                        <div class="content-notice">Calendar (select a week)：</div>
+                        <div class="content-notice">Calendar ( select a week )：</div>
                         <div class="content-value">
                             <el-date-picker
                                     class="value-info-time"
@@ -54,7 +54,7 @@
                         </div>
                     </div>
                     <div class="middle-item">
-                        <div class="content-notice">Weekly Turnover (£)：</div>
+                        <div class="content-notice">Weekly Turnover ( £ )：</div>
                         <div class="content-value">
                             <input class="value-info" v-model="weekNum"  @input="changeNum"/>
                         </div>

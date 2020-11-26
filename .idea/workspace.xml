@@ -3,18 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="b5f9c023-feb4-4120-a251-b41a48dba9ac" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/dist/css/app.7fb4674b.css" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/dist/css/chunk-vendors.30f05ae9.css" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/dist/favicon.ico" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/dist/fonts/element-icons.535877f5.woff" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/dist/fonts/element-icons.732389de.ttf" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/dist/img/about-header-bg.00cae5ae.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/dist/img/brand-logo.4dd9784b.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/dist/index.html" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/dist/js/app.ad5307e6.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/dist/js/app.ad5307e6.js.map" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/dist/js/chunk-vendors.2cf38e3a.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/dist/js/chunk-vendors.2cf38e3a.js.map" afterPath="" />
       <change beforePath="$PROJECT_DIR$/src/views/Index.vue" afterPath="$PROJECT_DIR$/src/views/Index.vue" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -29,15 +17,15 @@
       <file leaf-file-name="Index.vue" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/views/Index.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="230">
-              <caret line="385" column="26" lean-forward="false" selection-start-line="385" selection-start-column="26" selection-end-line="385" selection-end-column="26" />
+            <state relative-caret-position="74">
+              <caret line="53" column="30" lean-forward="false" selection-start-line="53" selection-start-column="30" selection-end-line="53" selection-end-column="30" />
               <folding>
                 <element signature="n#style#0;n#div#2;n#div#1;n#div#0;n#div#1;n#div#0;n#template#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#0;n#div#1;n#div#0;n#div#2;n#div#0;n#template#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#1;n#div#1;n#div#0;n#div#2;n#div#0;n#template#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#2;n#div#1;n#div#0;n#div#2;n#div#0;n#template#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#3;n#div#1;n#div#0;n#div#2;n#div#0;n#template#0;n#!!top" expanded="true" />
-                <element signature="e#5887#5933#0" expanded="true" />
+                <element signature="e#5893#5939#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -196,12 +184,12 @@
       <updated>1606250437715</updated>
       <workItem from="1606250440487" duration="47000" />
       <workItem from="1606250495735" duration="451000" />
-      <workItem from="1606287726978" duration="11386000" />
+      <workItem from="1606287726978" duration="11698000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="11884000" />
+    <option name="totallyTimeSpent" value="12196000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -246,15 +234,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/views/Index.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="230">
-          <caret line="385" column="26" lean-forward="false" selection-start-line="385" selection-start-column="26" selection-end-line="385" selection-end-column="26" />
+        <state relative-caret-position="74">
+          <caret line="53" column="30" lean-forward="false" selection-start-line="53" selection-start-column="30" selection-end-line="53" selection-end-column="30" />
           <folding>
             <element signature="n#style#0;n#div#2;n#div#1;n#div#0;n#div#1;n#div#0;n#template#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#div#1;n#div#0;n#div#2;n#div#0;n#template#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#1;n#div#1;n#div#0;n#div#2;n#div#0;n#template#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#2;n#div#1;n#div#0;n#div#2;n#div#0;n#template#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#3;n#div#1;n#div#0;n#div#2;n#div#0;n#template#0;n#!!top" expanded="true" />
-            <element signature="e#5887#5933#0" expanded="true" />
+            <element signature="e#5893#5939#0" expanded="true" />
           </folding>
         </state>
       </provider>
