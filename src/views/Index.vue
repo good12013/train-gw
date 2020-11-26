@@ -383,7 +383,6 @@
     .erro-value{
         font-size: 12px;
         color: #ff4d51;
-        margin-left: 10px;
         line-height: 20px;
     }
     .value-info-time{
