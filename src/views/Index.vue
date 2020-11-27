@@ -20,7 +20,7 @@
                         </div>
                     </div>
                     <div class="middle-item">
-                        <div class="content-notice">Unique Reference Number ( URN )：</div>
+                        <div class="content-notice">Unique Reference Number (URN)：</div>
                         <div class="content-value">
                             <input class="value-info" v-model="referNum"  />
                         </div>
@@ -32,7 +32,7 @@
                         </div>
                     </div>
                     <div class="middle-item">
-                        <div class="content-notice">Calendar ( select a week )：</div>
+                        <div class="content-notice">Calendar (select a week)：</div>
                         <div class="content-value">
                             <el-date-picker
                                     class="value-info-time"
@@ -54,7 +54,7 @@
                         </div>
                     </div>
                     <div class="middle-item">
-                        <div class="content-notice">Weekly Turnover ( £ )：</div>
+                        <div class="content-notice">Weekly Turnover (£)：</div>
                         <div class="content-value">
                             <input class="value-info" v-model="weekNum"  @input="changeNum"/>
                         </div>
@@ -91,7 +91,7 @@
                 </div>
                 <div class="content-bottom-two">
                     <div class="action-info-two">
-                        <div class="cancel-two" @click="closeSure" >No</div>
+                        <div class="cancel" @click="closeSure"  style="margin-right:40px; ">Clear</div>
                         <div class="sure" @click="submit">Yes</div>
                     </div>
                 </div>
@@ -105,8 +105,8 @@
                     <!--<div  style="height: 100px;"><span class="close-btn">Cancel</span></div>-->
                 </div>
                 <div class="conten-middle">
-                    <div class="sure-notice" style="font-weight: bold;">Thank you for submitting</div>
-                    <div class="sure-notice" style="font-weight: bold;">your weekly update.</div>
+                    <div class="sure-notice" >Thank you for submitting</div>
+                    <div class="sure-notice" >your weekly update.</div>
                     <div class="sure-notice" style="font-weight: bold;">You will receive a</div>
                     <div class="sure-notice" style="font-weight: bold;">confirmation email shortly.</div>
                 </div>
@@ -166,7 +166,7 @@
                 str = str.replace(/£/g,'')
                 if (!this.checkNum(str)){
                     console.log("gooood",str)
-                    this.weekErro.name = 'Please input correct weekly turnover!'
+                    this.weekErro.name = 'Please input correct weekly turnover'
                     return
                 }else{
                     this.weekErro.name = ''
@@ -208,7 +208,7 @@
             },
             makeSure(){
                 if (this.email.length == 0){
-                    this.emailErro.name = 'Please input your eamil!'
+                    this.emailErro.name = 'Please input your eamil'
                     this.emailErro.show = true
                     // this.$message.error('Please input your eamil!')
                 }else{
@@ -216,7 +216,7 @@
                     this.emailErro.show = false
                 }
                 if (this.referNum.length == 0){
-                    this.propErro.name = 'Please input  reference number!'
+                    this.propErro.name = 'Please input  reference number'
                     this.propErro.show = true
                     // this.$message.error('Please input  reference number!')
                 }else{
@@ -224,7 +224,7 @@
                     this.propErro.show = false
                 }
                 if (this.chooseTime.length == 0){
-                    this.timeErro.name = 'Please select a week!'
+                    this.timeErro.name = 'Please select a week'
                     this.timeErro.show = true
                     // this.$message.error('Please choose  time!')
                 }else{
@@ -232,7 +232,7 @@
                     this.timeErro.show = false
                 }
                 if (this.weekNum.length == 0){
-                    this.weekErro.name = 'Please input weekly turnover!'
+                    this.weekErro.name = 'Please input weekly turnover'
                     this.weekErro.show = true
                     // this.$message.error('Please input weekly turnover!')
                 }else{
@@ -245,7 +245,7 @@
                 let  str =  this.weekNum.replace(/,/g,'')
                 str = str.replace(/£/g,'')
                 if (!this.checkNum(str)){
-                    this.weekErro.name = 'Please input right weekly turnover!'
+                    this.weekErro.name = 'Please input correct weekly turnover'
                     return
                 }
                 let that = this
@@ -305,6 +305,7 @@
                 this.showOkay = false;
             },
             closeSure(){
+                this.resetInfo()
                 this.showSure = false;
             }
 
