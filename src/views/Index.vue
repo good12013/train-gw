@@ -91,7 +91,7 @@
                 </div>
                 <div class="content-bottom-two">
                     <div class="action-info-two">
-                        <div class="cancel" @click="closeSure"  style="margin-right:40px; ">Clear</div>
+                        <div class="cancel" @click="closeSure"  style="margin-right:40px; ">No</div>
                         <div class="sure" @click="submit">Yes</div>
                     </div>
                 </div>
@@ -261,7 +261,7 @@
                         that.showSure = true;
                     }
                     if (res.error_item === 'week_time'){
-                        that.timeErro.name = res.err_desc
+                        that.timeErro.name = 'Please select correct week'
                     }
                     if (res.error_item === 'email'){
                         that.emailErro.name = 'Please check your email address'
@@ -305,7 +305,7 @@
                 this.showOkay = false;
             },
             closeSure(){
-                this.resetInfo()
+                // this.resetInfo()
                 this.showSure = false;
             }
 
