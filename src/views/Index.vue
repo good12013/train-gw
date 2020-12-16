@@ -32,17 +32,17 @@
                         </div>
                     </div>
                     <div class="middle-item">
-                        <div class="content-notice">Calendar (select a week)：</div>
+                        <div class="content-notice">Calendar (select a daterange)：</div>
                         <div class="content-value">
                             <el-date-picker
                                     class="value-info-time"
                                     style="width: 280px;height: 40px;"
                                     v-model="chooseTime"
-                                    type="week"
-                                    placeholder="select a week"
-                                    :format="startTime"
+                                    type="daterange"
+                                    placeholder="select a daterange"
                                     value-format="yyyy-MM-dd"
-                                    :picker-options="pickerOption"
+                                    start-placeholder="startDate"
+                                    end-placeholder="endDate"
                                     @change="changeTime">
                             </el-date-picker>
                         </div>
@@ -132,6 +132,7 @@
                     firstDayOfWeek: 1
                 },
                 startTime:'',
+                endTime:'',
                 emailErro:{
                     show:false,
                     name:''
@@ -175,7 +176,7 @@
                 //     console.log("gooood",str)
                 //     str =  event.currentTarget.value.replace(/,/g,'')
                 // }
-                console.log(str)
+                // console.log(str)
                 if (str && str.length){
                     this.weekNum = parseFloat(str).toLocaleString('en-US')
                 }
@@ -185,8 +186,11 @@
 
             },
             changeTime(val){
-                this.startTime = this.getNextDate(val,-1)
-                this.chooseTime = this.getNextDate(val,-1) + 'T00:00:00+08:00'
+                this.startTime = val[0] + 'T00:00:00+08:00'
+                this.endTime = val[1] + 'T23:59:59+08:00'
+                this.chooseTime = val
+                // this.startTime = this.getNextDate(val,-1)
+                // this.chooseTime = this.getNextDate(val,-1) + 'T00:00:00+08:00'
             },
             getNextDate(date, day) {
                 var dd = new Date(date);
@@ -224,7 +228,7 @@
                     this.propErro.show = false
                 }
                 if (this.chooseTime.length == 0){
-                    this.timeErro.name = 'Please select a week'
+                    this.timeErro.name = 'Please select a dateRange'
                     this.timeErro.show = true
                     // this.$message.error('Please choose  time!')
                 }else{
@@ -253,15 +257,16 @@
                     email:this.email,
                     shop_union_id:this.referNum,
                     turnover:parseFloat(str),
-                    week_time:this.chooseTime
+                    start_date:this.startTime,
+                    end_date:this.endTime
                 }
                 this.loading = true
                 userCheck(params).then(res=>{
                     if(res.error_item.length == 0){
                         that.showSure = true;
                     }
-                    if (res.error_item === 'week_time'){
-                        that.timeErro.name = 'Please select correct week'
+                    if (res.error_item === 'week_time' || res.error_item === 'start_date' || res.error_item === 'end_date'){
+                        that.timeErro.name = 'Please select correct dateRange'
                     }
                     if (res.error_item === 'email'){
                         that.emailErro.name = 'Please check your email address'
@@ -281,11 +286,18 @@
             },
             submit(){
                 let that = this
+                let  str =  this.weekNum.replace(/,/g,'')
+                str = str.replace(/£/g,'')
+                if (!this.checkNum(str)){
+                    this.weekErro.name = 'Please input correct weekly turnover'
+                    return
+                }
                 const params = {
                     email:this.email,
                     shop_union_id:this.referNum,
-                    turnover:parseFloat(this.weekNum),
-                    week_time:this.chooseTime
+                    turnover:parseFloat(str),
+                    start_date:this.startTime,
+                    end_date:this.endTime
                 }
                 this.loading = true
                 userUpload(params).then(res=>{
@@ -387,10 +399,10 @@
         line-height: 20px;
     }
     .value-info-time{
-        width: 280px;
-        height: 40px;
-        background: #f0f0f0;
-        border: none;
+        width: 278px;
+        height: 38px;
+        border: 1px solid #f0f0f0;
+        border-radius: 8px;
     }
     .content-value{
         height: 40px;
