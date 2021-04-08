@@ -16,5 +16,13 @@ export function userUpload (params) {
     })
 }
 
+export function userTradingSet (params) {
+    return axios({
+        url: '/user/trading_set',
+        method: 'post',
+        data: params
+    })
+}
+
 
 

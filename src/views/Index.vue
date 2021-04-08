@@ -32,6 +32,51 @@
                         </div>
                     </div>
                     <div class="middle-item">
+                        <div class="content-notice">Are you currently tradin：</div>
+                        <div class="content-value" style="display: flex;align-items: center;">
+                            <div :class="choosedOpenButtun==1?'content-value-name-active':'content-value-name'" @click="chooseOpenStatus(1)">Yes</div>
+                            <div :class="choosedOpenButtun==0?'content-value-name-active':'content-value-name'" @click="chooseOpenStatus(0)">No</div>
+                        </div>
+                    </div>
+                    <div class="middle-item">
+                        <div class="content-notice-small"></div>
+                        <div class="erro-value">
+                            {{tradinErro.name}}
+                        </div>
+                    </div>
+                    <div class="middle-item" v-if="choosedOpenButtun==0">
+                        <div class="content-notice">When do you plan to start trading？
+                            (select a date)：</div>
+                        <div class="content-value">
+                            <el-date-picker
+                                    class="value-info-time"
+                                    style="width: 280px;height: 40px;"
+                                    v-model="openTime"
+                                    type="date"
+                                    value-format="yyyy-MM-dd"
+                                    @change="changeOpenTime"
+                                    placeholder="select a date">
+                            </el-date-picker>
+                            <!--<el-date-picker-->
+                                    <!--class="value-info-time"-->
+                                    <!--style="width: 280px;height: 40px;"-->
+                                    <!--v-model="chooseTime"-->
+                                    <!--type="daterange"-->
+                                    <!--placeholder="select a daterange"-->
+                                    <!--value-format="yyyy-MM-dd"-->
+                                    <!--start-placeholder="startDate"-->
+                                    <!--end-placeholder="endDate"-->
+                                    <!--@change="changeTime">-->
+                            <!--</el-date-picker>-->
+                        </div>
+                    </div>
+                    <div class="middle-item">
+                        <div class="content-notice-small"></div>
+                        <div class="erro-value">
+                            {{openTimeErro.name}}
+                        </div>
+                    </div>
+                    <div class="middle-item" v-if="choosedOpenButtun==1">
                         <div class="content-notice">Calendar (select a daterange)：</div>
                         <div class="content-value">
                             <el-date-picker
@@ -47,19 +92,19 @@
                             </el-date-picker>
                         </div>
                     </div>
-                    <div class="middle-item" >
+                    <div class="middle-item" v-if="choosedOpenButtun==1">
                         <div class="content-notice-small"></div>
                         <div class="erro-value">
                             {{timeErro.name}}
                         </div>
                     </div>
-                    <div class="middle-item">
+                    <div class="middle-item" v-if="choosedOpenButtun==1">
                         <div class="content-notice">Weekly Turnover (£)：</div>
                         <div class="content-value">
                             <input class="value-info" v-model="weekNum"  @input="changeNum"/>
                         </div>
                     </div>
-                    <div class="middle-item" >
+                    <div class="middle-item" v-if="choosedOpenButtun==1">
                         <div class="content-notice-small"></div>
                         <div class="erro-value">
                             {{weekErro.name}}
@@ -113,10 +158,24 @@
                 <div class="sure-agein" @click="goHome">Ok</div>
             </div>
         </div>
+        <div class="dialog-window" v-if="showOpenNotice">
+            <div class="submit-content">
+                <div class="conten-top">
+                    <img class="logo-img" src="../assets/brand-logo.png"/>
+                    <!--<div  style="height: 100px;"><span class="close-btn">Cancel</span></div>-->
+                </div>
+                <div class="conten-middle">
+                    <div class="sure-notice" >Thank you for providing the information</div>
+                    <div class="sure-notice" >We will send you a reminder when you</div>
+                    <div class="sure-notice">start trading</div>
+                </div>
+                <div class="sure-agein" @click="goHome">Ok</div>
+            </div>
+        </div>
     </div>
 </template>
 <script>
-    import {userUpload,userCheck} from '@/api/api'
+    import {userUpload,userCheck,userTradingSet} from '@/api/api'
     import { Loading} from 'element-ui';
     export default {
         name: "Home",
@@ -149,7 +208,18 @@
                     show:false,
                     name:''
                 },
-                loading:false
+                openTimeErro:{
+                    show:false,
+                    name:''
+                },
+                tradinErro:{
+                    show:false,
+                    name:''
+                },
+                loading:false,
+                choosedOpenButtun:-1,
+                openTime:'',
+                showOpenNotice:false
 
             }
         },
@@ -157,6 +227,14 @@
 
         },
         methods:{
+            changeOpenTime(value){
+                this.openTime = value
+            },
+            chooseOpenStatus(value) {
+                this.choosedOpenButtun = value
+                this.tradinErro.name = ''
+                this.tradinErro.show = false
+            },
             checkNum(str){
                 var reg = /^(([1-9][0-9]*\.[0-9][0-9]*)|([0]\.[0-9][0-9]*)|([1-9][0-9]*)|([0]{1}))$/;
                 return reg.test(str)
@@ -205,10 +283,14 @@
                 this.chooseTime = '';
                 this.referNum = '';
                 this.weekNum = '';
+                this.openTime = '';
                 this.emailErro.name = ''
                 this.propErro.name = ''
                 this.timeErro.name = ''
                 this.weekErro.name = ''
+                this.openTimeErro.name = ''
+                this.tradinErro.name = ''
+                this.choosedOpenButtun = -1
             },
             makeSure(){
                 if (this.email.length == 0){
@@ -227,61 +309,113 @@
                     this.propErro.name = ''
                     this.propErro.show = false
                 }
-                if (this.chooseTime.length == 0){
-                    this.timeErro.name = 'Please select a dateRange'
-                    this.timeErro.show = true
-                    // this.$message.error('Please choose  time!')
+                if (this.choosedOpenButtun == 1){
+                    this.tradinErro.name = ''
+                    this.tradinErro.show = false
+                    if (this.chooseTime.length == 0){
+                        this.timeErro.name = 'Please select a dateRange'
+                        this.timeErro.show = true
+                        // this.$message.error('Please choose  time!')
+                    }else{
+                        this.timeErro.name = ''
+                        this.timeErro.show = false
+                    }
+                    if (this.weekNum.length == 0){
+                        this.weekErro.name = 'Please input weekly turnover'
+                        this.weekErro.show = true
+                        // this.$message.error('Please input weekly turnover!')
+                    }else{
+                        this.weekErro.name = ''
+                        this.weekErro.show = false
+                    }
+                    if (this.email.length == 0 || this.referNum.length == 0 || this.chooseTime.length == 0 || this.weekNum.length == 0){
+                        return
+                    }
+                }else if(this.choosedOpenButtun == 0){
+                    this.tradinErro.name = ''
+                    this.tradinErro.show = false
+                    if (this.openTime.length == 0){
+                        this.openTimeErro.name = 'Please select a date'
+                        this.openTimeErro.show = true
+                        // this.$message.error('Please choose  time!')
+                    }else{
+                        this.openTimeErro.name = ''
+                        this.openTimeErro.show = false
+                    }
+                    if (this.email.length == 0 || this.referNum.length == 0 || this.openTime.length == 0){
+                        return
+                    }
                 }else{
-                    this.timeErro.name = ''
-                    this.timeErro.show = false
-                }
-                if (this.weekNum.length == 0){
-                    this.weekErro.name = 'Please input weekly turnover'
-                    this.weekErro.show = true
-                    // this.$message.error('Please input weekly turnover!')
-                }else{
-                    this.weekErro.name = ''
-                    this.weekErro.show = false
-                }
-                if (this.email.length == 0 || this.referNum.length == 0 || this.chooseTime.length == 0 || this.weekNum.length == 0){
+                    this.tradinErro.name = 'Please choose currently tradin status'
+                    this.tradinErro.show = true
                     return
                 }
-                let  str =  this.weekNum.replace(/,/g,'')
-                str = str.replace(/£/g,'')
-                if (!this.checkNum(str)){
-                    this.weekErro.name = 'Please input correct weekly turnover'
-                    return
-                }
-                let that = this
-                const params = {
-                    email:this.email,
-                    shop_union_id:this.referNum,
-                    turnover:parseFloat(str),
-                    start_date:this.startTime,
-                    end_date:this.endTime
-                }
-                this.loading = true
-                userCheck(params).then(res=>{
-                    if(res.error_item.length == 0){
-                        that.showSure = true;
+                if (this.choosedOpenButtun == 1){
+                    let  str =  this.weekNum.replace(/,/g,'')
+                    str = str.replace(/£/g,'')
+                    if (!this.checkNum(str)){
+                        this.weekErro.name = 'Please input correct weekly turnover'
+                        return
                     }
-                    if (res.error_item === 'week_time' || res.error_item === 'start_date' || res.error_item === 'end_date'){
-                        that.timeErro.name = 'Please select correct dateRange'
+                    let that = this
+                    const params = {
+                        email:this.email,
+                        shop_union_id:this.referNum,
+                        turnover:parseFloat(str),
+                        start_date:this.startTime,
+                        end_date:this.endTime
                     }
-                    if (res.error_item === 'email'){
-                        that.emailErro.name = 'Please check your email address'
-                    }
-                    if (res.error_item === 'shop_union_id'){
-                        that.propErro.name = 'Please check your URN'
-                    }
-                    if (res.error_item === 'turnover'){
-                        that.weekErro.name = 'Please input correct weekly turnover'
-                    }
-                    that.loading = false
+                    this.loading = true
+                    userCheck(params).then(res=>{
+                        if(res.error_item.length == 0){
+                            that.showSure = true;
+                        }
+                        if (res.error_item === 'week_time' || res.error_item === 'start_date' || res.error_item === 'end_date'){
+                            that.timeErro.name = 'Please select correct dateRange'
+                        }
+                        if (res.error_item === 'email'){
+                            that.emailErro.name = 'Please check your email address'
+                        }
+                        if (res.error_item === 'shop_union_id'){
+                            that.propErro.name = 'Please check your URN'
+                        }
+                        if (res.error_item === 'turnover'){
+                            that.weekErro.name = 'Please input correct weekly turnover'
+                        }
+                        that.loading = false
 
-                },error =>{
-                    that.loading = false
-                })
+                    },error =>{
+                        that.loading = false
+                    })
+                }else if (this.choosedOpenButtun == 0){
+                    let that = this
+                    const params = {
+                        email:this.email,
+                        shop_union_id:this.referNum,
+                        start_trading_time:this.openTime + 'T00:00:00+08:00',
+                        trading_status:-1
+                    }
+                    this.loading = true
+                    userTradingSet(params).then(res=>{
+                        if (res.err_code == 0){
+                            that.showOpenNotice = true
+                            that.loading = false
+                        }else{
+                            that.loading = false
+                            that.$message.error(res.err_desc)
+                        }
+
+
+                    },error =>{
+                        if (error.data.err_desc){
+                            that.$message.error(error.data.err_desc)
+                        }
+                        that.loading = false
+                    })
+                }else{
+
+                }
+
 
             },
             submit(){
@@ -315,6 +449,7 @@
             goHome(){
                 this.resetInfo()
                 this.showOkay = false;
+                this.showOpenNotice = false
             },
             closeSure(){
                 // this.resetInfo()
@@ -348,7 +483,7 @@
     }
     .submit-content{
         width: 620px;
-        height: 430px;
+        min-height: 430px;
         background: #ffffff;
         padding-left: 40px;
         padding-right: 40px;
@@ -383,7 +518,9 @@
         text-align: right;
         font-size: 14px;
         color: #006B42;
-        line-height: 40px;
+        display: flex;
+        align-items: center;
+        flex-direction: row-reverse;
     }
     .content-notice-small{
         width: 40%;
@@ -536,5 +673,35 @@
     }
     input[type="number"] {
         -moz-appearance: textfield;
+    }
+    .content-value-name{
+        width: 100px;
+        height: 40px;
+        margin-right: 20px;
+        background: #f0f0f0;
+        color: #111111;
+        font-size: 16px;
+        text-align: center;
+        line-height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 8px;
+        cursor: pointer;
+    }
+    .content-value-name-active{
+        width: 100px;
+        height: 40px;
+        margin-right: 20px;
+        background: #CC397F;
+        color: #ffffff;
+        font-size: 16px;
+        text-align: center;
+        line-height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 8px;
+        cursor: pointer;
     }
 </style>

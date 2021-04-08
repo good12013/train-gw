@@ -52,11 +52,11 @@ module.exports = {
   devServer: {
     disableHostCheck: true,
     proxy: {
-      // '/api': {
-      //   target: 'http://rent.transreport.co.uk',//'http://119.3.255.192:80',//http://xzty.gkzhi.com
-      //   ws: false,
-      //   changeOrigin: true
-      // },
+      '/api': {
+        target: ' http://rent.51qudian.cn',//'http://119.3.255.192:80'http://rent.transreport.co.uk,//http://xzty.gkzhi.com
+        ws: false,
+        changeOrigin: true
+      },
       '/gateway': {
         target: 'https://mock.ihx.me/mock/5baf3052f7da7e07e04a5116/antd-pro',
         changeOrigin: true,
